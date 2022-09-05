@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!--等价于Student stu = new Student();
+            id：创建对象的名称
+            class：就是创建对象的模型，底层通过反射创建对象
+            启动容器的同时，创建对象（解析了applicationContext.xml文件）
+
+            //用spring容器创建对象，对象必须要有无参构造方法
+            //用spring容器给创建的对象赋值，对象必须要有相应的setter方法
+-->
+    <bean id="stu" class="com.cxx.pojo.student">
+        <property name="name" value="张三"></property>
+        <property name="age" value="20"></property>
+        <property name="school" ref="school"></property>
+        <!--依赖注入（引用类型的注入）要保证是bean工程创建过的对象，在前在后都可以，具体原因看spring的生命周期-->
+    </bean>
+    <bean id="school" class="com.cxx.pojo.School">
+        <property name="name" value="成都大学"></property>
+        <property name="year" value="1978"></property>
+        <property name="address" value="成都市龙泉驿区十陵街道"></property>
+    </bean>
+    <!--用带参的构造函数创建对象（无需setter方法），使用参数顺序（注意：顺序不能错）-->
+    <bean id="stu2" class="com.cxx.pojo.student">
+        <constructor-arg value="张三"></constructor-arg>
+        <constructor-arg value="20"></constructor-arg>
+        <constructor-arg ref="school2"></constructor-arg>
+    </bean>
+    <!--用带参的构造函数创建对象（无需setter方法），使用参数名称（注意：name是要和）-->
+    <bean id="school2" class="com.cxx.pojo.School">
+        <constructor-arg name="name1" value="成都大学2"></constructor-arg>
+        <constructor-arg name="year1" value="1978"></constructor-arg>
+        <constructor-arg name="address1" value="成都市龙泉驿区十陵街道"></constructor-arg>
+    </bean>
+    <!--用带参的构造函数创建对象（无需setter方法），使用参数下标（注意：第一个参数下标是0不是1）-->
+    <bean id="school3" class="com.cxx.pojo.School">
+        <constructor-arg index="0" value="成都大学3"></constructor-arg>
+        <constructor-arg index="1" value="1978"></constructor-arg>
+        <constructor-arg index="2" value="成都市龙泉驿区十陵街道"></constructor-arg>
+    </bean>
+</beans>
